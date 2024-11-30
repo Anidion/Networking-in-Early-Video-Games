@@ -1,0 +1,112 @@
+\DocumentMetadata{}
+\documentclass[sigconf, balance=false]{acmart}
+
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ----------- Packages ----------- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xspace}
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{enumitem}
+%\usepackage[]{algorithm2e}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{algcompatible}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ----------- Theorems ----------- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\newtheorem{pilotStudy}{Pilot Study}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------ Basic editorial format ------ %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ie}{{i.e.,}\xspace} 
+\newcommand{\eg}{{e.g.,}\xspace} 
+\newcommand{\Eg}{{E.g.,}\xspace} 
+\newcommand{\etal}{{\it et al.}\xspace} 
+\newcommand{\mono}{\texttt}
+\newcommand{\octal}[1]{\texttt{0o#1}}
+
+\citestyle{acmauthoryear}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------ Paper Info ------ %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Networking in Early Video Games}
+
+\author{Benjamin Schmidt}
+\affiliation{%
+    \institution{University of Calgary}
+    \city{Calgary}
+    \state{AB}
+    \country{Canada}
+}
+
+\author{John Aycock}
+\affiliation{%
+    \institution{Supervisor}
+    \institution{University of Calgary}
+    \city{Calgary}
+    \state{AB}
+    \country{Canada}
+}
+
+
+ \keywords{Networked video games, Networking, History of video games}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10003456.10003457.10003521.10003524</concept_id>
+       <concept_desc>Social and professional topics~History of software</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Social and professional topics~History of software}
+\begin{abstract}
+We discuss three of the earliest networked video games -- \textit{Maze} (1973), \textit{Sopwith} (1984), and \textit{SGI Dogfight} (1985) -- each with distinctly different networking architectures. After analysis of the source code, we break down implementation details and compare similarities and differences in their approaches to real-time communication between players. We also use first-hand evidence backed up by implementation details to shine light on flaws in the systems.
+\end{abstract}
+
+\maketitle
+
+% Separate LaTeX file for each section.  Please keep the filenames as they are unless discussed with other authors
+\input{intro}
+\input{related}
+\input{pre}
+\input{design}
+% \input{imple}
+% \input{eval}
+\input{conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
