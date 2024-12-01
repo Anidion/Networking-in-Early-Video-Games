@@ -1,18 +1,11 @@
 \DocumentMetadata{}
 \documentclass[sigconf, balance=false]{acmart}
 
-%% \BibTeX command to typeset BibTeX logo in the docs
-\AtBeginDocument{%
-  \providecommand\BibTeX{{%
-\normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ----------- Packages ----------- %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xspace}
-%\usepackage[table,xcdraw]{xcolor}
 \usepackage{enumitem}
-%\usepackage[]{algorithm2e}
 \usepackage{ifthen}
 \usepackage{fancyhdr}
 \usepackage{comment}
@@ -103,6 +96,6 @@
 \input{conclusion}
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{references}
+\bibliography{references.bib}
 
 \end{document}
