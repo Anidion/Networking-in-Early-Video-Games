@@ -2,7 +2,7 @@
 
 \subsection{SGI Dogfight}
 
-After its standardization on the ARPANET in 1983, TCP/IP was first used in a networked video game by \textit{SGI Dogfight}. Originally created as a demo of the graphics capabilities of Silicon Graphics Inc. (SGI) workstations as well as SGI's IRIS GL -- their proprietary graphics API which later became the open standard OpenGL -- \textit{SGI Dogfight} is a 3D flight simulator which was included with SGI workstations \cite{zyda}. At first it was limited to single-player gameplay, but multiplayer was added in the form of a direct serial link (similar to how \textit{Maze} networking began), then over Xerox Network System (XNS) multicast over Ethernet. No interaction between players was possible, but other player-controlled planes were visible. In 1985, \mono{dog} was created, which allowed players to engage in dogfights, and UDP networking was added in 1986. This is significant as it marks the first known time the TCP/IP stack was used in a video game. SGI made the source code available on request, and many developers reportedly used the code to teach themselves how to use UDP packets \cite{zyda}. Source code dated to 1988 is available and open source \cite{dogsrc}. Though some changes may have been made from the original, the networking code appears to be unchanged and exhibits issues noted by developers and players, so this appears to be a representative example of the original UDP code. 
+After its standardization on the ARPANET in 1983, TCP/IP was first used in a networked video game by \textit{SGI Dogfight}. Originally created as a demo of the graphics capabilities of Silicon Graphics Inc. (SGI) workstations as well as SGI's IRIS GL -- their proprietary graphics API which later became the open standard OpenGL -- \textit{SGI Dogfight} is a 3D flight simulator which was included with SGI workstations \cite{zyda}. At first it was limited to single-player gameplay, but multiplayer was added in the form of a direct serial link (similar to how \textit{Maze} networking began), then over Xerox Network System (XNS) multicast over Ethernet. No interaction between players was possible, but other player-controlled planes were visible. In 1985, \mono{dog} was created, which allowed players to engage in dogfights, and UDP networking was added in 1986. This is significant as it marks the first known time the TCP/IP stack was used in a video game. SGI made the source code available on request, and many developers reportedly used the code to teach themselves how to use UDP packets \cite{zyda}. Source code dated to 1988 is available and open source \cite{dogsrc}. Though some changes may have been made from the original, the networking code appears to be unchanged and exhibits issues noted by developers and players, so this appears to be a representative example of the original UDP code.
 
 Like \textit{Sopwith}, \textit{SGI Dogfight} sent and received multiplayer data once per frame. Communication was achieved by using UDP broadcast packets through port $5130$, sending them to every client on the network. If other clients were running \textit{SGI Dogfight}, they would interpret the packets to update their local state. This implementation would prove problematic as we will discuss later.
 
@@ -13,27 +13,27 @@ Sending and receiving is implemented in a simple way -- sending uses the \mono{s
 The packet structure sent is always a plane struct, regardless of message type, so the \mono{cmd} field dictates this message type, represented by a macro corresponding to an integer. The following is a description of each of the 4 packet types. \cite{dogsrc}
 
 \begin{quote}
-    \mono{DATA\_PACKET 0}
-    
-    Standard plane struct with all plane-related information.
+  \mono{DATA\_PACKET 0}
+
+  Standard plane struct with all plane-related information.
 \end{quote}
 
 \begin{quote}
-    \mono{MSG\_PACKET 1}
+  \mono{MSG\_PACKET 1}
 
-    Contains chat message and addressee; if no addressee is specified the message displays for all players.
+  Contains chat message and addressee; if no addressee is specified the message displays for all players.
 \end{quote}
 
 \begin{quote}
-    \mono{SUPERKILL\_PACKET 2}
+  \mono{SUPERKILL\_PACKET 2}
 
-    Special admin message which exits the game for the addressed player or all players if none is specified.
+  Special admin message which exits the game for the addressed player or all players if none is specified.
 \end{quote}
 
 \begin{quote}
-    \mono{KILL\_PACKET 23}
-    
-    Exits game if game version of sender is greater than the receiver's.
+  \mono{KILL\_PACKET 23}
+
+  Exits game if game version of sender is greater than the receiver's.
 \end{quote}
 
 Despite using the plane struct, chat messages are just written to the struct from a certain point onward, ignoring the normal structure. Regardless of whether an addressee is specified, the message is still broadcast to all players, and the receiving code decides whether or not to display it.
@@ -42,16 +42,16 @@ Despite using the plane struct, chat messages are just written to the struct fro
 
 \mono{DATA\_PACKET}s corresponding to the local plane struct are sent every frame to update the locally stored information for all other players. When receiving a \mono{DATA\_PACKET}, the receiver also checks if a certain field in the packet is the same as their ID in order to run the function to crash their plane.
 
-This implementation has a few problems. Since source code was available, it would have been trivial to modify the program to be able to send a \mono{DATA\_PACKET} to another player which would crash their plane without needing to fire a shot. Malicious users could also send \mono{SUPERKILL\_PACKET}s to force others games to exit. 
+This implementation has a few problems. Since source code was available, it would have been trivial to modify the program to be able to send a \mono{DATA\_PACKET} to another player which would crash their plane without needing to fire a shot. Malicious users could also send \mono{SUPERKILL\_PACKET}s to force others games to exit.
 
-More notably, a game of \textit{SGI Dogfight} with sufficient players acts as an unintentional Distributed Denial of Service (DDoS) attack on other devices attached to the network. 
+More notably, a game of \textit{SGI Dogfight} with sufficient players acts as an unintentional Distributed Denial of Service (DDoS) attack on other devices attached to the network.
 This problem was exacerbated by \textit{SGI Dogfight}'s inclusion in all new SGI workstations, making it very easy to access. One \mono{DATA\_PACKET} is a struct of size $112$ bytes, sent once per frame, and workstations could run \textit{SGI Dogfight} between 7 and 15 frames per second depending on hardware. This means one player broadcasts $784-1680$ bytes per second during gameplay. The total traffic on the network is of course multiplied by the number of players, and the volume would cause congestion in a network if enough players were in a session, blocking traffic for other devices and even freezing them outright \cite{mace}. The game even includes an error message which warns of this:
 
 \begin{quote}
-WARNING some machines can not handle large numbers of udp
-broadcast packets.  If you have machines from other vendors
-on your network, running dog on your network may bring them
-to a halt.  VAXes are known to have this problem.
+  WARNING some machines can not handle large numbers of udp
+  broadcast packets.  If you have machines from other vendors
+  on your network, running dog on your network may bring them
+  to a halt.  VAXes are known to have this problem.
 \end{quote}
 
 \cite{dogsrc}

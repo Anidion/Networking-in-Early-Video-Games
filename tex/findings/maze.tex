@@ -8,57 +8,57 @@ Players would simultaneously occupy a shared maze, and had the ability to move f
 
 \textit{Maze} was written for the Imlac PDS-1 in its native assembly language, and initially supported multiplayer functionality by connecting two PDS-1s with a RS-232 serial cable \cite{thompson}. In 1974, development continued at MIT, where multiple PDS-1s were connected to a central DEC PDP-10 server. This version of \textit{Maze} is what we will discuss henceforth, as the original source code is fully available and has been open sourced.
 
-% 
+%
 
 We will briefly discuss the server's function. The server could support up to eight PDS-1s, each connected to it by a separate serial cable, and enabled initial setup and message ``routing'' \cite{thompson}. Upon connection, the game and a custom maze (if specified) were downloaded from the server to the client, and players were connected together. From this point on, the server acted as a repeater of characters from a PDS-1, forwarding them to all connected devices except the sender. All game logic and network code is therefore handled by the client, with the exception of ``robots'' -- characters controlled by the server instead of a human player.
 As PDS-1s were common in institutions that formed the ARPANET, cross-institutional play was possible for mainframes connected to it, and so the server would handle this as well.
 
-% 
+%
 
 \textit{Maze} used the \textit{Maze} Protocol to send and receive information about player and game state. Each client would maintain a copy of the global state locally. Information about other players was updated when receiving messages as well as when the local client shoots another player. Clients would simply receive characters from the serial connection by calling an instruction to move the input from the buffer to a register, masking to the lower 7 bits -- discarding the most significant bit to fit the ASCII standard -- then handling that character as the input. This would happen in an infinite loop, no different than standard practice for modern real-time networking. A single character was not enough for useful information, so multiple characters would be sent in this structure: \mono{<command> <arg1> <arg2>...<argn>}. Each character was sent separately, and the receivers would wait for all the arguments to arrive (if needed) before processing the command. With this in mind, it would theoretically be possible for characters from multiple clients to be interleaved, with bytes from one player being mixed in with those from another, causing unpredictable behaviour. It is unclear if the server had a role in mitigating this, but we do know that \textit{Maze} had error handling for unexpected data. For example, player IDs are checked for validity (between \octal{001} and \octal{008} inclusive) and that they are not the receiving player's ID. There are also checks for turning in an invalid direction, or moving to a location outside the maze.
 
 The following is a description of the six possible legal message types. In the description below, we separate each character by whitespace. No arguments are optional. \cite{mazesrc}
 
 \begin{quote}
-    \mono{\octal{001} <id>}
-    
-    Player \mono{id} left the game.
+  \mono{\octal{001} <id>}
+
+  Player \mono{id} left the game.
 \end{quote}
 
 \begin{quote}
-    \mono{\octal{002} <id> <direction> <x> <y>}
-    
-    Player \mono{id} moved to position \mono{(x,y)} and turned to \mono{direction}.
+  \mono{\octal{002} <id> <direction> <x> <y>}
+
+  Player \mono{id} moved to position \mono{(x,y)} and turned to \mono{direction}.
 \end{quote}
 
 \begin{quote}
-    \mono{\octal{003} <id> <target id>}
-    
-    Player \mono{id} shot player \mono{target id}.
+  \mono{\octal{003} <id> <target id>}
+
+  Player \mono{id} shot player \mono{target id}.
 \end{quote}
 
 \begin{quote}
-    \mono{\octal{004} <id> <uname> <\# of hits> <\# of deaths>}
-    
-    Player \mono{<id>} with name \mono{uname} joined the game.
+  \mono{\octal{004} <id> <uname> <\# of hits> <\# of deaths>}
+
+  Player \mono{<id>} with name \mono{uname} joined the game.
 \end{quote}
 
 \begin{quote}
-    \octal{014}
-    
-    Erase display ring buffer, clears message history.
+  \octal{014}
+
+  Erase display ring buffer, clears message history.
 \end{quote}
 
 \begin{quote}
-    >\octal{014}
-    
-    Print this character in the display ring buffer. For example, if \octal{015} is received, a carriage return is printed.
+  >\octal{014}
+
+  Print this character in the display ring buffer. For example, if \octal{015} is received, a carriage return is printed.
 \end{quote}
 
 These are mostly self-explanatory, but some further detail is needed for message types \octal{002} and \octal{004}. When a number is sent (\eg \mono{\# of hits}), the \octal{100} bit is set to distinguish this from an ASCII character. If characters are received when numbers are expected, the message is discarded by error handling.
 
 A player's \mono{uname} is always 6 characters long with spaces used to pad shorter names, and the count of hits and deaths are sent as two characters each, the first character carrying the high order 6 bits, and the second the lower order 6 bits. These would be combined to form the full 12-bit number.
-As a result of these, message type \octal{004} would send 12 bytes total. 
+As a result of these, message type \octal{004} would send 12 bytes total.
 
 Message type \octal{004} is sent when a new player joins to announce their presence and username. In response, all clients would reply with a message of the same type so the new player would know all other players' usernames and scores.
 
@@ -69,4 +69,3 @@ As mentioned earlier, the PDS-1 was common in the ARPANET, and according to \cit
 Latency was an issue due to the client-side hit registration. For instance, player 1 knows it has shot player 2 based on the latest location it has of player 2. However, if player 2 moved out of the line of fire before receiving the full message informing them of their death, from their perspective it would appear as if they were hit by an enemy who shouldn't have been able to see them. This would give an unfair advantage to the shooter when latency was sufficiently high.
 
 Other issues may have also included the aforementioned message interleaving, though many cases would likely have been handled by the error handling in the client code.
-
