@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{33}
+\begin{thebibliography}{34}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -260,6 +260,18 @@ Retrieved 2024-10-28 from \tempurl}
 Retrieved 2024-10-30 from \tempurl}
 
 
+\bibitem[McFadden(1994)]%
+        {netrekhist}
+\bibfield{author}{\bibinfo{person}{Andy McFadden}.} \bibinfo{year}{1994}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The History of Netrek, through Jan 1 1994}}.
+\newblock Netrek Nexus.
+\newblock
+\urldef\tempurl%
+\url{https://www.netrek.org/about/history_overall.php}
+\showURL{%
+Retrieved 2024-12-04 from \tempurl}
+
+
 \bibitem[MediaWiki(2024)]%
         {pywikibot}
 \bibfield{author}{\bibinfo{person}{MediaWiki}.} \bibinfo{year}{2024}\natexlab{}.
@@ -298,21 +310,9 @@ Retrieved 2024-10-26 from \tempurl}
 \showDOI{\tempurl}
 
 
-\bibitem[Morningstar et~al\mbox{.}(2016)]%
-        {macrosssrc}
-\bibfield{author}{\bibinfo{person}{Chip Morningstar}, \bibinfo{person}{F.~Randall Farmer}, {and} \bibinfo{person}{Janet Hunter}.} \bibinfo{year}{2016}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{macross}}.
-\newblock Museum of Art and Digital Entertainment.
-\newblock
-\urldef\tempurl%
-\url{https://github.com/Museum-of-Art-and-Digital-Entertainment/macross}
-\showURL{%
-Retrieved 2024-12-03 from \tempurl}
-
-
-\bibitem[Morningstar et~al\mbox{.}(2017)]%
+\bibitem[Morningstar et~al\mbox{.}(1986a)]%
         {habitatsrc}
-\bibfield{author}{\bibinfo{person}{Chip Morningstar}, \bibinfo{person}{F.~Randall Farmer}, {and} \bibinfo{person}{Janet Hunter}.} \bibinfo{year}{2017}\natexlab{}.
+\bibfield{author}{\bibinfo{person}{Chip Morningstar}, \bibinfo{person}{F.~Randall Farmer}, {and} \bibinfo{person}{Janet Hunter}.} \bibinfo{year}{1986}\natexlab{a}.
 \newblock \bibinfo{booktitle}{\emph{habitat}}.
 \newblock Museum of Art and Digital Entertainment.
 \newblock
@@ -320,6 +320,18 @@ Retrieved 2024-12-03 from \tempurl}
 \url{https://github.com/Museum-of-Art-and-Digital-Entertainment/habitat}
 \showURL{%
 Retrieved 2024-11-05 from \tempurl}
+
+
+\bibitem[Morningstar et~al\mbox{.}(1986b)]%
+        {macrosssrc}
+\bibfield{author}{\bibinfo{person}{Chip Morningstar}, \bibinfo{person}{F.~Randall Farmer}, {and} \bibinfo{person}{Janet Hunter}.} \bibinfo{year}{1986}\natexlab{b}.
+\newblock \bibinfo{booktitle}{\emph{macross}}.
+\newblock Museum of Art and Digital Entertainment.
+\newblock
+\urldef\tempurl%
+\url{https://github.com/Museum-of-Art-and-Digital-Entertainment/macross}
+\showURL{%
+Retrieved 2024-12-03 from \tempurl}
 
 
 \bibitem[Necasek(2011)]%
