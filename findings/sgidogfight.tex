@@ -5,10 +5,10 @@ After its standardization on the ARPANET in 1983, TCP/IP was first used in a net
 Like \textit{Sopwith}, \textit{SGI Dogfight} sent and received multiplayer data once per frame. Communication was achieved by using UDP broadcast packets through port $5130$, sending them to every client on the network. If other clients were running \textit{SGI Dogfight}, they would interpret the packets to update their local state. This implementation would prove problematic as we will discuss later.
 
 \textit{SGI Dogfight} was built for IRIX, SGI's UNIX-based operating system. As such, it uses the \mono{<netinet/in.h>} POSIX header to interface with the kernel-level networking.
-On initialization, structures are created for each player-controlled plane which stored the same full set of information as the local plane. The broadcast socket and host's IP address are found and stored for subsequent use. Each plane is given an ID (the client's IP address), and lookups are performed by iterating through the plane structs until a plane with the matching IP address was found and returned. Depending on the number of players present, it might have been more efficient to create a mapping of numerical IDs to IP addresses and directly address the corresponding element in the array when looking up a specific plane, though this would trade off a small amount of memory.
+On initialization, structures are created for each player-controlled plane which stored the same full set of information as the local plane. The broadcast socket and host's IP address are found and stored for subsequent use. Each plane is given an ID (the client's IP address), and lookups are performed by iterating through the plane structures until a plane with the matching IP address was found and returned. Depending on the number of players present, it might have been more efficient to create a mapping of numerical IDs to IP addresses and directly address the corresponding element in the array when looking up a specific plane, though this would trade off a small amount of memory.
 
 Sending and receiving is implemented in a simple way -- sending uses the \mono{sendto} function directly, and receiving reads from the socket in a loop until no more data is available in the socket buffer.
-The packet structure sent is always a plane struct, regardless of message type, so the \mono{cmd} field dictates this message type, represented by a macro corresponding to an integer. The following is a description of each of the 4 packet types.~\cite{dogsrc}
+The packet structure sent is always a plane struct, regardless of message type, so the \mono{cmd} field dictates this message type, represented by a macro corresponding to an integer. The following is a description of each of the 4 packet types~\cite{dogsrc}.
 
 \begin{quote}
   \mono{DATA\_PACKET 0}
@@ -43,11 +43,11 @@ Despite using the plane struct, chat messages are just written to the struct fro
 This implementation has a few problems. Since source code was available, it would have been trivial to modify the program to be able to send a \mono{DATA\_PACKET} to another player which would crash their plane without needing to fire a shot. Malicious users could also send \mono{SUPERKILL\_PACKET}s to force others games to exit.
 
 More notably, a game of \textit{SGI Dogfight} with sufficient players acts as an unintentional Distributed Denial of Service (DDoS) attack on other devices attached to the network.
-This problem was exacerbated by \textit{SGI Dogfight}'s inclusion in all new SGI workstations, making it very easy to access. One \mono{DATA\_PACKET} is a struct of size $112$ bytes, sent once per frame, and workstations could run \textit{SGI Dogfight} between 7 and 15 frames per second depending on hardware. This means one player broadcasts $784-1680$ bytes per second during gameplay. The total traffic on the network is of course multiplied by the number of players, and the volume would cause congestion in a network if enough players were in a session, blocking traffic for other devices and even freezing them outright~\cite{mace}. The game even includes an error message which warns of this:
+This problem was exacerbated by \textit{SGI Dogfight}'s inclusion in all new SGI workstations, making it very easy to access. One \mono{DATA\_PACKET} is a struct of size $112$ bytes (not including UDP/IP overhead), sent once per frame, and workstations could run \textit{SGI Dogfight} between 7 and 15 frames per second depending on hardware. This means one player broadcasts $784-1680$ bytes per second during gameplay. The total traffic on the network is of course multiplied by the number of players, and the volume would cause congestion in a network if enough players were in a session, blocking traffic for other devices and even freezing them outright~\cite{mace}. The game even includes an error message which warns of this~\cite{dogsrc}.
 
 \begin{quote}
   WARNING some machines can not handle large numbers of udp
   broadcast packets. If you have machines from other vendors
   on your network, running dog on your network may bring them
   to a halt. VAXes are known to have this problem.
-\end{quote}~\cite{dogsrc}
+\end{quote}

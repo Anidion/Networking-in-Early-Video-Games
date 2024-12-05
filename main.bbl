@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{34}
+\begin{thebibliography}{36}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -54,8 +54,8 @@
 \bibitem[Aycock and Biittner(2023)]%
         {aycock}
 \bibfield{author}{\bibinfo{person}{John Aycock} {and} \bibinfo{person}{Katie Biittner}.} \bibinfo{year}{2023}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Archaeogaming is X}}.
-\newblock \bibinfo{publisher}{Cotsen Institute of Archaeology Press}, \bibinfo{address}{CA, USA}, Chapter~8, \bibinfo{pages}{83--78}.
+\newblock \showarticletitle{Archaeogaming is X}.
+\newblock In \bibinfo{booktitle}{\emph{Archaeology Outside the Box}}. \bibinfo{publisher}{Cotsen Institute of Archaeology Press}, \bibinfo{address}{CA, USA}, Chapter~8, \bibinfo{pages}{83--78}.
 \newblock
 
 
@@ -81,7 +81,7 @@ Issue 2.
 \urldef\tempurl%
 \url{https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization}
 \showURL{%
-\tempurl}
+Retrieved 2024-12-05 from \tempurl}
 
 
 \bibitem[Blau et~al\mbox{.}(1992)]%
@@ -140,7 +140,7 @@ Retrieved 2024-10-29 from \tempurl}
 \urldef\tempurl%
 \url{https://fragglet.github.io/sdl-sopwith/imaginet.html}
 \showURL{%
-\tempurl}
+Retrieved 2024-12-05 from \tempurl}
 
 
 \bibitem[Das et~al\mbox{.}(1997)]%
@@ -163,7 +163,7 @@ Retrieved 2024-10-29 from \tempurl}
 \urldef\tempurl%
 \url{http://ethernethistory.typepad.com/papers/EthernetSpec.pdf}
 \showURL{%
-\tempurl}
+Retrieved 2024-12-05 from \tempurl}
 
 
 \bibitem[Edwards(2016)]%
@@ -227,7 +227,7 @@ Retrieved 2024-10-28 from \tempurl}
 \bibitem[Jorgensen(2009)]%
         {jorgensen}
 \bibfield{author}{\bibinfo{person}{Anker~Helms Jorgensen}.} \bibinfo{year}{2009}\natexlab{}.
-\newblock \showarticletitle{{ Context and Driving Forces in the Development of the Early Computer Game Nimbi }}.
+\newblock \showarticletitle{{ Context and Driving Forces in the Development of the Early Computer Game Nimbi}}.
 \newblock \bibinfo{journal}{\emph{IEEE Annals of the History of Computing}} \bibinfo{volume}{31}, \bibinfo{number}{03} (\bibinfo{date}{July} \bibinfo{year}{2009}), \bibinfo{pages}{44--53}.
 \newblock
 \showISSN{1934-1547}
@@ -394,6 +394,18 @@ Retrieved 2024-10-29 from \tempurl}
 Retrieved 2024-12-03 from \tempurl}
 
 
+\bibitem[Silvey et~al\mbox{.}(1992)]%
+        {netreksrc}
+\bibfield{author}{\bibinfo{person}{Scott Silvey}, \bibinfo{person}{Kevin Smith}, {and} \bibinfo{person}{Chris Guthrie}.} \bibinfo{year}{1992}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Netrek}}.
+\newblock Netrek Software Archive.
+\newblock
+\urldef\tempurl%
+\url{http://ftp.netrek.org/pub/netrek/mirrors.new/ftp.risc.uni-linz.ac.at/pub/netrek/src/rsa.netrek.tar.Z}
+\showURL{%
+Retrieved 2024-12-05 from \tempurl}
+
+
 \bibitem[Singhal and Cheriton(1995)]%
         {Singhal1995ExploitingReality}
 \bibfield{author}{\bibinfo{person}{Sandeep~K. Singhal} {and} \bibinfo{person}{David~R. Cheriton}.} \bibinfo{year}{1995}\natexlab{}.
@@ -416,6 +428,18 @@ Retrieved 2024-12-03 from \tempurl}
 \url{https://notwood.net/sgiflight/old-flight-src.zip}
 \showURL{%
 Retrieved 2024-09-08 from \tempurl}
+
+
+\bibitem[{The Museum of Art and Digital Entertainment}(2017)]%
+        {habitatmade}
+\bibfield{author}{\bibinfo{person}{{The Museum of Art and Digital Entertainment}}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Museum Reintroduces 'Habitat,' the First Graphical MMORPG}}.
+\newblock Computer Graphics World Magazine.
+\newblock
+\urldef\tempurl%
+\url{https://www.cgw.com/Press-Center/News/2017/Museum-Reintroduces-Habitat-the-First-Graphical-.aspx}
+\showURL{%
+Retrieved 2024-12-05 from \tempurl}
 
 
 \bibitem[Thompson(2004)]%
